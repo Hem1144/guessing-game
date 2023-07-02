@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Hem1144/guessing-game/issues"
   },
-  "homepage": "https://github.com/Hem1144/guessing-game#readme"
+  "homepage": "https://github.com/Hem1144/guessing-game#readme",
+  "dependencies": {
+    "testem": "^3.10.1"
+  }
 }

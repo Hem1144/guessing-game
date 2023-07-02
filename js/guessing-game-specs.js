@@ -154,7 +154,7 @@ describe('Game class', () => {
 
     describe('newGame function', () => {
       it('returns an empty, new game instance', () => {
-        game = newGame(); // newGame calls new Game() and returns the new instance
+        game = newGame(); //newGame calls new Game() and returns the new instance
         expect(game.playersGuess).toEqual(null);
         expect(game.pastGuesses.length).toEqual(0);
       });
