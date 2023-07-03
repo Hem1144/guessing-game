@@ -9,7 +9,7 @@ a user clicks a button or adds a guess to the input field.
 */
 
 function generateWinningNumber() {
-  return Math.floor(Math.random() * 100) + 1;
+  return Math.ceil(Math.random() * 100);
 }
 
 function shuffle(array) {
@@ -91,4 +91,58 @@ class Game {
 }
 function newGame() {
   return new Game();
+}
+
+let game = new Game();
+
+// unique selectors
+const titleMsg = document.getElementById("title-msg");
+const guessMsg = document.getElementById("guess-msg");
+const submitClick = document.getElementById("submit-btn");
+const listItem = document.getElementById("guess-list").children;
+const resetClick = document.getElementById("btn1");
+
+// Handling Reset.
+resetClick.addEventListener("click", resetFun);
+function resetFun() {
+  for (let i = 0; i < listItem.length; ++i) {
+    listItem[i].innerText = "";
+  }
+  game = newGame();
+  document.getElementById("inner-input").value = "";
+}
+
+// Handling click
+submitClick.addEventListener("click", clickFun);
+function clickFun() {
+  const guessedNum = Number(document.getElementById("inner-input").value);
+  titleMsg.innerHTML = game.playersGuessSubmission(guessedNum);
+
+  document.getElementById("inner-input").value = "";
+
+  for (let i = 0; i < game.pastGuesses.length; ++i) {
+    if (game.pastGuesses[i]) {
+      listItem[i].innerText = game.pastGuesses[i];
+    }
+  }
+
+  setTimeout(() => {
+    guessMsg.innerHTML =
+      guessedNum < game.winningNumber
+        ? "Guess Higher!"
+        : guessedNum === game.winningNumber
+        ? "You Win!"
+        : "Guess Lower!";
+  }, "1000");
+
+  setTimeout(() => {
+    guessMsg.innerHTML = "Guess a number between 1-100";
+  }, "2000");
+}
+
+// Hint button logic
+const hintBtn = document.getElementById("btn2");
+hintBtn.addEventListener("click", hintFun);
+function hintFun() {
+  titleMsg.innerHTML = `The hints for the game is [${game.provideHint()}]`;
 }
